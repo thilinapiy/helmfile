@@ -30,17 +30,17 @@ resources:
 
 ports:
   - name: http
-    containerPort: 3000
+    containerPort: 80
     protocol: TCP
 
 livenessProbe:
   initialDelaySeconds: 30
   tcpSocket:
-    port: 3000
+    port: 80
 readinessProbe:
   initialDelaySeconds: 30
   tcpSocket:
-    port: 3000
+    port: 80
 
 env:
   - name: REPOSITORY_URL

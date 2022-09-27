@@ -1,8 +1,8 @@
-## Chart Description 
+## Chart Description
 
 #### Chart tree
 
-````
+```
 .
 ├── charts
 │   └── appname
@@ -25,11 +25,11 @@
 │   └── values
 │       └── appname.yaml.gotmpl
 ├── README.md
-````
+```
 
 > Main folder with templating chart located at `helm/charts`
 
-### Description 
+### Description
 
 The most interesting thing is located here `helm/helmfile.d`
 
@@ -40,20 +40,20 @@ helmfiles:
   - "releases/appname.yaml"
 ```
 
-`releases/appname.yaml` - this file contains main parameters for release 
+`releases/appname.yaml` - this file contains main parameters for release
 
 ```kubernetes helm
 releases:
   # Name for release
   - name: "appname"
-    # Namespace for application 
+    # Namespace for application
     namespace: {{ env "NAMESPACE" | default "appnamespace" }}
     labels:
       # Chart name
       chart: "appname"
       # Component for chart
       component: "appname"
-      # Namespace for application 
+      # Namespace for application
       namespace: {{ env "NAMESPACE" | default "appnamespace" }}
     # Path to the chart
     chart: "../../charts/appname"
@@ -84,16 +84,16 @@ ingress:
   # Enable ingress creating
   enabled: true
   annotations:
-    # Choose ingress controller 
+    # Choose ingress controller
     kubernetes.io/ingress.class: "nginx"
-    # Enable ssl redirect 
+    # Enable ssl redirect
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     # Choose cluster-issuer
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
   hosts:
     # Domain name for http
     - host: {{ requiredEnv "DOMAIN_NAME" }}
-    # Default path 
+    # Default path
       paths:
         - /
   tls:
@@ -111,7 +111,7 @@ resources:
   # Memory limit
     memory: 512Mi
   requests:
-  # Default CPU 
+  # Default CPU
     cpu: 200m
   # Default memory
     memory: 256Mi
@@ -119,17 +119,17 @@ resources:
 ports:
   - name: http
     # Port for application container
-    containerPort: 3000
+    containerPort: 80
     protocol: TCP
 
 livenessProbe:
   initialDelaySeconds: 30
   tcpSocket:
-    port: 3000
+    port: 80
 readinessProbe:
   initialDelaySeconds: 30
   tcpSocket:
-    port: 3000
+    port: 80
 
 # Envirinment variables for application container
 env:
@@ -141,6 +141,5 @@ env:
 
 ### Adding environment variables
 
-In order to add secret environment variables, you need to do the following. 
-Go to your project in gitlab - `settings` - `CI/CD` - `Variables` - click `Add variable` choose `environment name` and add your variable `name` and `value` 
-
+In order to add secret environment variables, you need to do the following.
+Go to your project in gitlab - `settings` - `CI/CD` - `Variables` - click `Add variable` choose `environment name` and add your variable `name` and `value`
