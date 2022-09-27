@@ -1,0 +1,12 @@
+releases:
+  - name: "database"
+    namespace: {{ env "NAMESPACE" | default "appnamespace" }}
+    labels:
+      chart: "database"
+      component: "database"
+      namespace: {{ env "NAMESPACE" | default "appnamespace" }}
+    chart: "../../charts/database"
+    wait: true
+    installed: {{ env "INSTALLED" | default "true" }}
+    values:
+    - ../values/database.yaml.gotmpl

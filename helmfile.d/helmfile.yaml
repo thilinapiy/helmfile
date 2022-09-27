@@ -1,2 +1,3 @@
 helmfiles:
   - "releases/appname.yaml"
+  - "releases/database.yaml"
